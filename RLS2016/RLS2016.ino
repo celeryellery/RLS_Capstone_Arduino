@@ -90,7 +90,44 @@ void loop() {
 }
 
 void Serial_Control() {
-  
+      if (Serial.available()) 
+      {
+        temp = Serial.readString();
+        if (temp == "read")
+        {
+          test_message();
+        }
+        else if (temp == "boardID") //Board ID is requested
+        {
+          Board_ID();
+        }
+        else if (temp.substring(0,7) == "board_1") //Board_1 is addressed
+        {
+          serial_message = temp;
+          Serial.println(serial_message); //testting
+          board_1(temp); //Configure board_2 (the default message is board_1,01,1,4,4,01,01)
+        }      
+        else if (temp.substring(0,7) == "board_2")//Board 2 is addressed
+        {
+          Serial.println(temp); //testting
+          board_2(temp); //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
+        }
+        else if (temp.substring(0,7) == "board_5")//Board 5 is addressed
+        {
+          Serial.println(serial_message); //testting          THIS MAY NEED TO BE CHANGED TO TAKE IN TEMP LATER INSTEAD OF SERIAL MESSAGE
+          board_5(temp); //Configure board_5
+        }
+        /*
+        else if(temp.substring(0,9) == "power_reg")
+        {
+          Power_Regulation(temp); //power_reg,111
+        }
+        */
+        else
+        {
+          serial_message = temp;
+        }
+      }
 }
 
  //This function exists only for testting purposes, it sends the user the last message
@@ -123,4 +160,40 @@ void Safety_Check(){
       //digitalWrite(Power_Relay_Enable, LOW);
     }
  }
+
+void Board_ID()
+  {
+    buttonState_A = digitalRead(buttonPin_A);
+    buttonState_B = digitalRead(buttonPin_B);
+    buttonState_C = digitalRead(buttonPin_C);
+    buttonState_D = digitalRead(buttonPin_D);
+    buttonState_E = digitalRead(buttonPin_E);
+    buttonState_F = digitalRead(buttonPin_F);
+    buttonState_G = digitalRead(buttonPin_G);
+    buttonState_H = digitalRead(buttonPin_H);
+  
+    board_ID ="Board_ID," 
+              +String(buttonState_A)
+              +String(buttonState_B)
+              +String(buttonState_C)
+              +String(buttonState_D)
+              +String(buttonState_E)
+              +String(buttonState_F)
+              +String(buttonState_G)
+              +String(buttonState_H);
+    Serial.print("Board ID: ");
+    Serial.println(board_ID);
+}
+
+void board_1(String Board_1_Serial) {
+  
+}
+
+void board_2(String Board_2_Serial) {
+  
+}
+
+void board_5(String Board_5_Serial) {
+  
+}
 
