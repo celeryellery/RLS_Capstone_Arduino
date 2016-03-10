@@ -7,20 +7,19 @@ String serial_message_num = "null";
 
 //board_5 setup: start
 //R1
-int Board_5_R1_State = 1;
 const int Board_5_Switch2_In4 = 23;
 //R2
-int Board_5_R2_State = 1;
 const int Board_5_Switch2_In3 = 25;
 //R3
-int Board_5_R3_State = 1;
 const int Board_5_Switch1_In1 = 26;
 //C1
-int Board_5_C1_State = 1;
 const int Board_5_Switch2_In1 = 22;
 //C2
-int Board_5_C2_State = 1;
 const int Board_5_Switch2_In2 = 24;
+// variables used for parsing input from interface
+int board5_top_resistor = 0;
+int board5_bottom_resistor = 0;
+int board5_capacitor = 0;
 //board_5 setup: end
 
 
@@ -186,7 +185,7 @@ void Board_ID()
 }
 
 void board_1(String Board_1_Serial) {
-  
+
 }
 
 void board_2(String Board_2_Serial) {
@@ -194,6 +193,45 @@ void board_2(String Board_2_Serial) {
 }
 
 void board_5(String Board_5_Serial) {
+  // variables used for parsing input from interface
+  board5_top_resistor = Board_5_Serial.substring(8,9).toInt();
+  board5_bottom_resistor = Board_5_Serial.substring(9,10).toInt();
+  board5_capacitor = Board_5_Serial.substring(10,11).toInt();
   
+  // State of top resistor
+  if(board5_top_resistor == 0) {
+    digitalWrite(Board_5_Switch2_In4, HIGH);
+    digitalWrite(Board_5_Switch2_In3, LOW);
+    Serial.println("Board5 Top resistor value: ");
+  }
+  else if (board5_top_resistor == 1) {
+    digitalWrite(Board_5_Switch2_In4, LOW);
+    digitalWrite(Board_5_Switch2_In3, HIGH);
+    Serial.println("Board5 Top resistor value: ");
+  }
+
+  
+  // State of bottom resistor
+  if(board5_bottom_resistor == 0) {
+    digitalWrite(Board_5_Switch1_In1, LOW);
+    Serial.println("Board5 Bottom resistor value: ");
+  }
+  else if (board5_bottom_resistor == 1) {
+    digitalWrite(Board_5_Switch1_In1, HIGH);
+    Serial.println("Board5 Bottom resistor value: ");
+  }
+
+  
+  // State of capacitor
+  if(board5_capacitor == 0) {
+    digitalWrite(Board_5_Switch2_In1, LOW);
+    digitalWrite(Board_5_Switch2_In2, HIGH);
+    Serial.println("Board5 capacitor value: ");
+  }
+  else if (board5_capacitor == 1) {
+    digitalWrite(Board_5_Switch2_In1, HIGH);
+    digitalWrite(Board_5_Switch2_In2, LOW);
+    Serial.println("Board5 capacitor value: ");
+  }
 }
 
