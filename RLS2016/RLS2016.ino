@@ -82,7 +82,45 @@ void setup() {
 
 }
 
+// the loop routine runs over and over again forever:
 void loop() {
-  // put your main code here, to run repeatedly:
-
+    Serial_Control();
+    Safety_Check();
+    //do a safety check for the board     
 }
+
+void Serial_Control() {
+  
+}
+
+ //This function exists only for testting purposes, it sends the user the last message
+//that the MEGA board received
+void test_message(){
+  Serial.println(serial_message);
+}
+
+  //Check if the daughter board is present,
+  //if it isnt, disable the Power Regulator relay
+void Safety_Check(){
+    buttonState_A = digitalRead(buttonPin_A);
+    buttonState_B = digitalRead(buttonPin_B);
+    buttonState_C = digitalRead(buttonPin_C);
+    buttonState_D = digitalRead(buttonPin_D);
+    buttonState_E = digitalRead(buttonPin_E);
+    buttonState_F = digitalRead(buttonPin_F);
+    buttonState_G = digitalRead(buttonPin_G);
+    buttonState_H = digitalRead(buttonPin_H);
+    if ((buttonState_A == 0)
+        &(buttonState_B == 0)
+        &(buttonState_C == 0)
+        &(buttonState_D == 0)
+        &(buttonState_E == 0)
+        &(buttonState_F == 0)
+        &(buttonState_G == 0)
+        &(buttonState_H == 0))
+    {
+      Serial.println("No board in place.");
+      //digitalWrite(Power_Relay_Enable, LOW);
+    }
+ }
+
