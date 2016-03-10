@@ -45,14 +45,40 @@ int buttonState_H = 0;
 //board_ID: end
 
 
-// Need to include power regulator stuff here later, but not
+// Need to include power regulator stuff here later, but not now for testing Board 5 only
 
 
 
 
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(9600);  
+  
+  //board_5: start
+  //R1
+  pinMode(Board_5_Switch2_In4, OUTPUT);
+  //R2
+  pinMode(Board_5_Switch2_In3, OUTPUT);
+  //R3
+  pinMode(Board_5_Switch1_In1, OUTPUT);
+  //C1
+  pinMode(Board_5_Switch2_In1, OUTPUT);
+  //C2
+  pinMode(Board_5_Switch2_In2, OUTPUT);
+  //board_5: end
+  
+  //board_ID: start
+  pinMode(buttonPin_A, INPUT);  
+  pinMode(buttonPin_B, INPUT); 
+  pinMode(buttonPin_C, INPUT);
+  pinMode(buttonPin_D, INPUT);  
+  pinMode(buttonPin_E, INPUT); 
+  pinMode(buttonPin_F, INPUT);
+  pinMode(buttonPin_G, INPUT);  
+  pinMode(buttonPin_H, INPUT); 
+  //board_ID: end
+  
+  // Need to include power regulator stuff here later, but not now for testing Board 5 only
 
 }
 
