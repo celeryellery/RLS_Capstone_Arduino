@@ -24,14 +24,14 @@ int board5_capacitor = 0;
 
 
 //board_ID: start
-const int buttonPin_A = A0;     
-const int buttonPin_B = A1;
-const int buttonPin_C = A2;
-const int buttonPin_D = A3;     
-const int buttonPin_E = A4;
-const int buttonPin_F = A5;
-const int buttonPin_G = A6;
-const int buttonPin_H = A7;
+const int buttonPin_A = 51;// A0;     
+const int buttonPin_B = 49;//A1;
+const int buttonPin_C = 47; //A2;
+const int buttonPin_D = 45; //A3;     
+const int buttonPin_E = 43;//A4;
+const int buttonPin_F = 41;//A5;
+const int buttonPin_G = 39;//A6;
+const int buttonPin_H = 37;//A7;
 String board_ID = "null";
 int buttonState_A = 0;         
 int buttonState_B = 0; 
@@ -155,7 +155,7 @@ void Safety_Check(){
         &(buttonState_G == 0)
         &(buttonState_H == 0))
     {
-      Serial.println("No board in place.");
+      Serial.println("No board in place!!");
       //digitalWrite(Power_Relay_Enable, LOW);
     }
  }
