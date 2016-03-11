@@ -24,14 +24,14 @@ int board5_capacitor = 0;
 
 
 //board_ID: start
-const int buttonPin_A = 7;     
-const int buttonPin_B = 6;
-const int buttonPin_C = 5;
-const int buttonPin_D = 4;     
-const int buttonPin_E = 3;
-const int buttonPin_F = 2;
-const int buttonPin_G = 1;
-const int buttonPin_H = 0;
+const int buttonPin_A = A0;     
+const int buttonPin_B = A1;
+const int buttonPin_C = A2;
+const int buttonPin_D = A3;     
+const int buttonPin_E = A4;
+const int buttonPin_F = A5;
+const int buttonPin_G = A6;
+const int buttonPin_H = A7;
 String board_ID = "null";
 int buttonState_A = 0;         
 int buttonState_B = 0; 
