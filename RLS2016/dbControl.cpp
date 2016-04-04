@@ -13,7 +13,6 @@
 #include "dbControl.h"
 
 // variables to hold input from UI
-String temp = "null";
 int test = 0;
 int test1 = 0;
 
@@ -33,40 +32,43 @@ DBControl::DBControl() {
 void DBControl::Serial_Control() {
       if (Serial.available()) 
       {
-        temp = Serial.readString();
-        if (temp == "read")
+        String outputFromUI = Serial.readString();
+        if (outputFromUI == "read")
         {
           test_message();
         }
-        else if (temp == "boardID") //Board ID is requested
+        else if (outputFromUI == "boardID") //Board ID is requested
         {
-          Board_ID();
+          readBoardID();
+          stringifyBoardID();
+          Serial.print("Board ID: "); // DELETE THIS LINE LATER IF WEIRD SERIAL PRINT THINGS ARE HAPPENING!!!!!
+          Serial.println(boardID); // AND THIS ONE TOO!!!!
         }
-        else if (temp.substring(0,7) == "board_1") //Board_1 is addressed
+        else if (outputFromUI.substring(0,7) == "board_1") //Board_1 is addressed
         {
           serial_message = temp;
           Serial.println(serial_message); //testting
-          board_1(temp); //Configure board_2 (the default message is board_1,01,1,4,4,01,01)
+          board_1(outputFromUI); //Configure board_2 (the default message is board_1,01,1,4,4,01,01)
         }      
-        else if (temp.substring(0,7) == "board_2")//Board 2 is addressed
+        else if (outputFromUI.substring(0,7) == "board_2")//Board 2 is addressed
         {
-          Serial.println(temp); //testting
-          board_2(temp); //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
+          Serial.println(outputFromUIemp); //testting
+          board_2(outputFromUI); //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
         }
-        else if (temp.substring(0,7) == "board_5")//Board 5 is addressed
+        else if (outputFromUI.substring(0,7) == "board_5")//Board 5 is addressed
         {
           Serial.println(serial_message); //testting          THIS MAY NEED TO BE CHANGED TO TAKE IN TEMP LATER INSTEAD OF SERIAL MESSAGE
-          board_5(temp); //Configure board_5
+          board_5(outputFromUI); //Configure board_5
         }
         /*
-        else if(temp.substring(0,9) == "power_reg")
+        else if(outputFromUI.substring(0,9) == "power_reg")
         {
-          Power_Regulation(temp); //power_reg,111
+          Power_Regulation(outputFromUI); //power_reg,111
         }
         */
         else
         {
-          serial_message = temp;
+          serial_message = outputFromUI;
         }
       }
 }
