@@ -18,6 +18,21 @@ class DB5 {
 	public: 
 	
 	private:
+  //R1
+  const int Board_5_Switch2_In4;
+  //R2
+  const int Board_5_Switch2_In3;
+  //R3
+  const int Board_5_Switch1_In1;
+  //C1
+  const int Board_5_Switch2_In1;
+  //C2
+  const int Board_5_Switch2_In2;
+  
+  // variables used for parsing input from interface
+  int board5_top_resistor;
+  int board5_bottom_resistor;
+  int board5_capacitor;
 };
 
 #endif

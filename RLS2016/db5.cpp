@@ -12,13 +12,28 @@
 #include "Arduino.h"
 #include "db5.h"
 
+//set up connections between arduino and switches
+//R1
+const int Board_5_Switch2_In4 = 23;
+//R2
+const int Board_5_Switch2_In3 = 25;
+//R3
+const int Board_5_Switch1_In1 = 26;
+//C1
+const int Board_5_Switch2_In1 = 22;
+//C2
+const int Board_5_Switch2_In2 = 24;
+
+// set up variables used for parsing input from interface
+int board5_top_resistor = 0;
+int board5_bottom_resistor = 0;
+int board5_capacitor = 0;
+
 // class constructor
 DB5::DB5() {
 	
 }
 
-// class destructor
-DB5::
 
 String temp = "null";
 int test = 0;

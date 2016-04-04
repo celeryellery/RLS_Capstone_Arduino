@@ -9,6 +9,10 @@
 	Reseased into the public domain.
 ******************************************************************************/
 
+#include <dbControl.h>
 #include <db5.h>
 
+DBControl boardController();
 DB5 daughterboard5();
+
+
