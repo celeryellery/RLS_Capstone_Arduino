@@ -21,9 +21,11 @@ DBControl::DBControl() {
   
 }
 
-// Serial control returns the number of the board plugged in, 
-// or -1 if the board ID was just determined or if there was an error
-int DBControl::serialControl() {
+// Serial control returns the BoardID of the board plugged in, 
+// or "IdChecked" if the board ID was just determined,
+// or "Error" if there was an error
+String DBControl::serialControl() {
+      String outputMessage();
       if (Serial.available()) 
       {
         String outputFromUI = Serial.readString();
@@ -34,22 +36,22 @@ int DBControl::serialControl() {
           stringifyBoardID();
           Serial.print("Board ID: "); // DELETE THIS LINE LATER IF WEIRD SERIAL PRINT THINGS ARE HAPPENING!!!!!
           Serial.println(boardID); 
-          return -1;
+          outputMessage = "IdChecked";
         }
         else if (boardIDsubstring == "board_1") //Board_1 is addressed
         {
           Serial.println(outputFromUI); 
-          return 1; //Configure board_1 (the default message is board_1,01,1,4,4,01,01)
+          outputMessage = outputFromUI; //Configure board_1 (the default message is board_1,01,1,4,4,01,01)
         }      
         else if (boardIDsubstring == "board_2")//Board 2 is addressed
         {
           Serial.println(outputFromUI); 
-          return 2; //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
+          outputMessage = outputFromUI; //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
         }
         else if (boardIDsubstring == "board_5")//Board 5 is addressed
         {
           Serial.println(outputFromUI);           
-          return 5; //Configure board_5
+          outputMessage = outputFromUI;; //Configure board_5
         }
         /*
         else if(outputFromUI.substring(0,9) == "power_reg")
@@ -60,10 +62,11 @@ int DBControl::serialControl() {
         else
         {
           Safety_Check();
-          Serial.println("error");
-          return -1;
+          Serial.println("Error");
+          outputMessage = "Error";
         }
       }
+    return outputMessage;
 }
 
 //Check if the daughter board is present,

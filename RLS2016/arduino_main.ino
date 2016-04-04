@@ -29,8 +29,6 @@ DB5 board5();
 // DB6 board6();
 // DB7 board7();
 
-// number of the daughterboard that's currently attached
-int boardNum = 0; // 0 signifies no board attached
 
 // setup runs once when Arduino is powered on
 void setup() {
@@ -74,34 +72,35 @@ void setup() {
 
 // the loop routine runs over and over again forever
 void loop() {
-  boardController.Serial_Control();
+  String outputFromUI = boardController.Serial_Control();
+  String boardIDsubstring = outputFromUI.substring(0,7);
 
-  /*if (boardNum == 1) {
-    board1.execute();
+  /*if (boardIDsubstring == "board_1") {
+    board1.execute(outputFromUI);
   }
-  else if (boardNum == 2) {
-    board2.execute();
+  else if boardIDsubstring == "board_2") {  
+    board2.execute(outputFromUI);
   }
-  else if (boardNum == 3) {
-    board3.execute();
+  else if (boardIDsubstring == "board_3") {
+    board3.execute(outputFromUI);
   }
-  else if (boardNum == 4) {
-    board4.execute();
+  else if (boardIDsubstring == "board_4") {
+    board4.execute(outputFromUI);
   }
   */
-  else if (boardNum == 5) {
-    board5.execute();
+  else if (boardIDsubstring == "board_5") {
+    board5.execute(outputFromUI);
   }
   /*
-  if (boardNumardID == 6) {
-    board6.execute();
+  if (boardIDsubstring == "board_6") {
+    board6.execute(outputFromUI);
   }
-  if (boardNum == 6) {
-    board7.execute();
+  if (boardIDsubstring == "board_7") {
+    board7.execute(outputFromUI);
   }
   */
   else {
-    Serial.println("Frror recognizing board."); // MAY HAVE TO CHANGE THIS LINE LATER
+    Serial.println("Error recognizing board."); // MAY HAVE TO CHANGE THIS LINE LATER
   }
   
   boardController.Safety_Check();   

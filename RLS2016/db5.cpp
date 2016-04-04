@@ -34,9 +34,7 @@ DB5::DB5() {
 	
 }
 
-//TODO: clean up board_5 function and split into several helper methods
-
-void configurePins() {
+void DB5::configurePins() {
   pinMode(switch2_In4, OUTPUT); //R1
   pinMode(switch2_In3, OUTPUT); //R2
   pinMode(switch1_In1, OUTPUT); //R3
@@ -44,7 +42,7 @@ void configurePins() {
   pinMode(switch2_In2, OUTPUT); //C2
 }
 
-void execute(String Board_5_Serial) {
+void DB5::execute(String Board_5_Serial) {
   // variables used for parsing input from interface
   board5_top_resistor = Board_5_Serial.substring(8,9).toInt();
   board5_bottom_resistor = Board_5_Serial.substring(9,10).toInt();
@@ -61,7 +59,7 @@ void execute(String Board_5_Serial) {
     digitalWrite(Board_5_Switch2_In3, HIGH);
     Serial.println("Board5 Top resistor value: ");
   }
-
+  
   
   // State of bottom resistor
   if(board5_bottom_resistor == 0) {
