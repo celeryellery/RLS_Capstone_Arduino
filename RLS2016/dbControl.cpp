@@ -16,16 +16,11 @@
 const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 39, 37};
 int boardIdPinState[8] = {0};
 
-// class constructor
-DBControl::DBControl() {
-  
-}
-
 // Serial control returns the BoardID of the board plugged in, 
 // or "IdChecked" if the board ID was just determined,
 // or "Error" if there was an error
 String DBControl::serialControl() {
-      String outputMessage();
+      String outputMessage = "";
       if (Serial.available()) 
       {
         String outputFromUI = Serial.readString();
@@ -33,7 +28,7 @@ String DBControl::serialControl() {
         if (outputFromUI == "boardID") //Board ID is requested
         {
           readBoardID();
-          stringifyBoardID();
+          String boardID = stringifyBoardID();
           Serial.print("Board ID: "); // DELETE THIS LINE LATER IF WEIRD SERIAL PRINT THINGS ARE HAPPENING!!!!!
           Serial.println(boardID); 
           outputMessage = "IdChecked";
@@ -61,7 +56,7 @@ String DBControl::serialControl() {
         */
         else
         {
-          Safety_Check();
+          safetyCheck();
           Serial.println("Error");
           outputMessage = "Error";
         }
@@ -88,13 +83,13 @@ void DBControl::readBoardID() {
   // Read the voltage on all 8 pins of the board ID
   // and save their state into the array boardIDPinState
   for (int i = 0; i < 8; i++) {
-    boardIdPinState[i] = digitalRead(boardIdPins[i]));
+    boardIdPinState[i] = digitalRead(boardIdPins[i]);
   }
 }
 
 String DBControl::stringifyBoardID() {
   // Build up a string from all the board ID pin states
-  boardID = "Board_ID,";
+  String boardID = "Board_ID,";
   for (int i = 0; i < 8; i++) {
      boardID = boardID + String(boardIdPinState[i]);
   }

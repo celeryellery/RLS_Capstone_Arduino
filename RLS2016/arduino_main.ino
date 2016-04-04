@@ -1,12 +1,12 @@
 /******************************************************************************
-	arduino_main.ino
-	This is the main Arduino code that calls all libraries
-	needed to run the Remote Lab System project for the 
-	Universtiy of Washington Bothell. 
-	This code is designed to run on an Arduino Mega 2560.
-	
-	Created by Ellery Walsh, March 2016
-	Reseased into the public domain.
+  arduino_main.ino
+  This is the main Arduino code that calls all libraries
+  needed to run the Remote Lab System project for the 
+  Universtiy of Washington Bothell. 
+  This code is designed to run on an Arduino Mega 2560.
+  
+  Created by Ellery Walsh, March 2016
+  Reseased into the public domain.
 ******************************************************************************/
 
 // TODO:
@@ -20,14 +20,14 @@
 #include <db5.h>
 
 // instantiate board objects
-DBControl boardController();
-// DB1 board1();
-// DB2 board2();
-// DB3 board3();
-// DB4 board4();
-DB5 board5();
-// DB6 board6();
-// DB7 board7();
+DBControl boardController;
+// DB1 board1;
+// DB2 board2;
+// DB3 board3;
+// DB4 board4;
+DB5 board5;
+// DB6 board6;
+// DB7 board7;
 
 
 // setup runs once when Arduino is powered on
@@ -35,7 +35,7 @@ void setup() {
   Serial.begin(9600);  
 
   // Determine which board is plugged in
-  boardController.readreadBoardID();
+  boardController.readBoardID();
   String boardID = boardController.stringifyBoardID();
 
   // Configure pins correctly for the given board
@@ -53,7 +53,7 @@ void setup() {
     board4.configurePins();
   }
   */
-  else if (boardID == "Board_ID,00000101") {
+  /*else*/ if (boardID == "Board_ID,00000101") {
     board5.configurePins();
   }
   /*
@@ -72,7 +72,7 @@ void setup() {
 
 // the loop routine runs over and over again forever
 void loop() {
-  String outputFromUI = boardController.Serial_Control();
+  String outputFromUI = boardController.serialControl();
   String boardIDsubstring = outputFromUI.substring(0,7);
 
   /*if (boardIDsubstring == "board_1") {
@@ -88,7 +88,7 @@ void loop() {
     board4.execute(outputFromUI);
   }
   */
-  else if (boardIDsubstring == "board_5") {
+  /*else*/ if (boardIDsubstring == "board_5") {
     board5.execute(outputFromUI);
   }
   /*
@@ -103,7 +103,7 @@ void loop() {
     Serial.println("Error recognizing board."); // MAY HAVE TO CHANGE THIS LINE LATER
   }
   
-  boardController.Safety_Check();   
+  boardController.safetyCheck();   
 }
 
 

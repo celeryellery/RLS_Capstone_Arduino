@@ -24,7 +24,7 @@ class DBControl {
   
   private:
   // Arduino Pins used for reading Board ID
-  const int boardIdPins[8];
+  const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 39, 37};
   int boardIdPinState[8];
 };
 

@@ -20,11 +20,11 @@ class DB5 {
   void configurePins();
   
 	private:
-  const int switch2_In4; //R1
-  const int switch2_In3; //R2
-  const int switch1_In1; //R3
-  const int switch2_In1; //C1
-  const int switch2_In2; //C2
+  const int switch2_In4 = 23; //R1
+  const int switch2_In3 = 25; //R2
+  const int switch1_In1 = 26; //R3
+  const int switch2_In1 = 22; //C1
+  const int switch2_In2 = 24; //C2
   
   // variables used for parsing input from interface
   int top_resistor;

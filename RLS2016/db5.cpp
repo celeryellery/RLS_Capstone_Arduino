@@ -29,11 +29,6 @@ int top_resistor = 0;
 int bottom_resistor = 0;
 int capacitor = 0;
 
-// class constructor
-DB5::DB5() {
-	
-}
-
 void DB5::configurePins() {
   pinMode(switch2_In4, OUTPUT); //R1
   pinMode(switch2_In3, OUTPUT); //R2
@@ -44,43 +39,43 @@ void DB5::configurePins() {
 
 void DB5::execute(String Board_5_Serial) {
   // variables used for parsing input from interface
-  board5_top_resistor = Board_5_Serial.substring(8,9).toInt();
-  board5_bottom_resistor = Board_5_Serial.substring(9,10).toInt();
-  board5_capacitor = Board_5_Serial.substring(10,11).toInt();
+  top_resistor = Board_5_Serial.substring(8,9).toInt();
+  bottom_resistor = Board_5_Serial.substring(9,10).toInt();
+  capacitor = Board_5_Serial.substring(10,11).toInt();
   
   // State of top resistor
-  if(board5_top_resistor == 0) {
-    digitalWrite(Board_5_Switch2_In4, HIGH);
-    digitalWrite(Board_5_Switch2_In3, LOW);
+  if(top_resistor == 0) {
+    digitalWrite(switch2_In4, HIGH);
+    digitalWrite(switch2_In3, LOW);
     Serial.println("Board5 Top resistor value: ");
   }
-  else if (board5_top_resistor == 1) {
-    digitalWrite(Board_5_Switch2_In4, LOW);
-    digitalWrite(Board_5_Switch2_In3, HIGH);
+  else if (top_resistor == 1) {
+    digitalWrite(switch2_In4, LOW);
+    digitalWrite(switch2_In3, HIGH);
     Serial.println("Board5 Top resistor value: ");
   }
   
   
   // State of bottom resistor
-  if(board5_bottom_resistor == 0) {
-    digitalWrite(Board_5_Switch1_In1, LOW);
+  if(bottom_resistor == 0) {
+    digitalWrite(switch1_In1, LOW);
     Serial.println("Board5 Bottom resistor value: ");
   }
-  else if (board5_bottom_resistor == 1) {
-    digitalWrite(Board_5_Switch1_In1, HIGH);
+  else if (bottom_resistor == 1) {
+    digitalWrite(switch1_In1, HIGH);
     Serial.println("Board5 Bottom resistor value: ");
   }
 
   
   // State of capacitor
-  if(board5_capacitor == 0) {
-    digitalWrite(Board_5_Switch2_In1, LOW);
-    digitalWrite(Board_5_Switch2_In2, HIGH);
+  if(capacitor == 0) {
+    digitalWrite(switch2_In1, LOW);
+    digitalWrite(switch2_In2, HIGH);
     Serial.println("Board5 capacitor value: ");
   }
-  else if (board5_capacitor == 1) {
-    digitalWrite(Board_5_Switch2_In1, HIGH);
-    digitalWrite(Board_5_Switch2_In2, LOW);
+  else if (capacitor == 1) {
+    digitalWrite(switch2_In1, HIGH);
+    digitalWrite(switch2_In2, LOW);
     Serial.println("Board5 capacitor value: ");
   }
 }
