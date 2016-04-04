@@ -11,43 +11,62 @@
 
 // TODO:
 // Need to include power regulator stuff from original code but updated for new motherboard
-// Change structure of Serial_Control function in dbControl so it returns a string that gets parsed outside
-// figure out what temp variable means and rename it
-// create case statement inside Main instead of in dbContol
+// check pin numbers of arduino mega analog write pins
 // check signatures of functions inside all .h files to make sure no const, private, &, etc. are missing
+// refactor helper methods in DB5
+// create configuration file to turn some functions orange
 
 #include <dbControl.h>
 #include <db5.h>
 
+// instantiate board objects
 DBControl boardController();
+// DB1 board1();
+// DB2 board2();
+// DB3 board3();
+// DB4 board4();
 DB5 board5();
+// DB6 board6();
+// DB7 board7();
 
+// number of the daughterboard that's currently attached
+int boardNum = 0; // 0 signifies no board attached
+
+// setup runs once when Arduino is powered on
 void setup() {
   Serial.begin(9600);  
-  
-  //board_5: start
-  //R1
-  pinMode(board5.switch2_In4, OUTPUT);
-  //R2
-  pinMode(board5.switch2_In3, OUTPUT);
-  //R3
-  pinMode(board5.switch1_In1, OUTPUT);
-  //C1
-  pinMode(board5.switch2_In1, OUTPUT);
-  //C2
-  pinMode(board5.switch2_In2, OUTPUT);
-  //board_5: end
-  
-  //board_ID: start
-  pinMode(boardController.buttonPin_A, INPUT);  
-  pinMode(boardController.buttonPin_B, INPUT); 
-  pinMode(boardController.buttonPin_C, INPUT);
-  pinMode(boardController.buttonPin_D, INPUT);  
-  pinMode(boardController.buttonPin_E, INPUT); 
-  pinMode(boardController.buttonPin_F, INPUT);
-  pinMode(boardController.buttonPin_G, INPUT);  
-  pinMode(boardController.buttonPin_H, INPUT); 
-  //board_ID: end
+
+  // Determine which board is plugged in
+  boardController.readreadBoardID();
+  String boardID = boardController.stringifyBoardID();
+
+  // Configure pins correctly for the given board
+  /*
+  if (boardID == "Board_ID,00000001") {
+    board1.configurePins();
+  }
+  else if (boardID == "Board_ID,00000010") {
+    board2.configurePins();
+  }
+  else if (boardID == "Board_ID,00000011") {
+    board3.configurePins();
+  }
+  else if (boardID == "Board_ID,00000100") {
+    board4.configurePins();
+  }
+  */
+  else if (boardID == "Board_ID,00000101") {
+    board5.configurePins();
+  }
+  /*
+  if (boardID == "Board_ID,00000110") {
+    board6.configurePins();
+  }
+  if (boardID == "Board_ID,00000111") {
+    board7.configurePins();
+  }
+  */
+  boardController.configureBoardIdPins();
   
   // Need to include power regulator stuff here later, but not now for testing a few boards only
   Serial.println("Finished Setup successfully.");
@@ -55,8 +74,37 @@ void setup() {
 
 // the loop routine runs over and over again forever
 void loop() {
-    boardController.Serial_Control();
-    boardController.Safety_Check();   
+  boardController.Serial_Control();
+
+  /*if (boardNum == 1) {
+    board1.execute();
+  }
+  else if (boardNum == 2) {
+    board2.execute();
+  }
+  else if (boardNum == 3) {
+    board3.execute();
+  }
+  else if (boardNum == 4) {
+    board4.execute();
+  }
+  */
+  else if (boardNum == 5) {
+    board5.execute();
+  }
+  /*
+  if (boardNumardID == 6) {
+    board6.execute();
+  }
+  if (boardNum == 6) {
+    board7.execute();
+  }
+  */
+  else {
+    Serial.println("Frror recognizing board."); // MAY HAVE TO CHANGE THIS LINE LATER
+  }
+  
+  boardController.Safety_Check();   
 }
 
 

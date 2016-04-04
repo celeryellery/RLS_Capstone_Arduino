@@ -15,43 +15,41 @@
 // Pins of Board ID are Arduino Mega's analog input pins
 const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 39, 37};
 int boardIdPinState[8] = {0};
-String board_ID = "null";
 
 // class constructor
 DBControl::DBControl() {
   
 }
 
-void DBControl::Serial_Control() {
+// Serial control returns the number of the board plugged in, 
+// or -1 if the board ID was just determined or if there was an error
+int DBControl::serialControl() {
       if (Serial.available()) 
       {
         String outputFromUI = Serial.readString();
-        if (outputFromUI == "read")
-        {
-          test_message();
-        }
-        else if (outputFromUI == "boardID") //Board ID is requested
+        String boardIDsubstring = outputFromUI.substring(0,7);
+        if (outputFromUI == "boardID") //Board ID is requested
         {
           readBoardID();
           stringifyBoardID();
           Serial.print("Board ID: "); // DELETE THIS LINE LATER IF WEIRD SERIAL PRINT THINGS ARE HAPPENING!!!!!
-          Serial.println(boardID); // AND THIS ONE TOO!!!!
+          Serial.println(boardID); 
+          return -1;
         }
-        else if (outputFromUI.substring(0,7) == "board_1") //Board_1 is addressed
+        else if (boardIDsubstring == "board_1") //Board_1 is addressed
         {
-          serial_message = outputFromUI;
-          Serial.println(serial_message); //testting
-          board_1(outputFromUI); //Configure board_2 (the default message is board_1,01,1,4,4,01,01)
+          Serial.println(outputFromUI); 
+          return 1; //Configure board_1 (the default message is board_1,01,1,4,4,01,01)
         }      
-        else if (outputFromUI.substring(0,7) == "board_2")//Board 2 is addressed
+        else if (boardIDsubstring == "board_2")//Board 2 is addressed
         {
-          Serial.println(outputFromUIemp); //testting
-          board_2(outputFromUI); //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
+          Serial.println(outputFromUI); 
+          return 2; //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
         }
-        else if (outputFromUI.substring(0,7) == "board_5")//Board 5 is addressed
+        else if (boardIDsubstring == "board_5")//Board 5 is addressed
         {
-          Serial.println(serial_message); //testting          THIS MAY NEED TO BE CHANGED TO TAKE IN TEMP LATER INSTEAD OF SERIAL MESSAGE
-          board_5(outputFromUI); //Configure board_5
+          Serial.println(outputFromUI);           
+          return 5; //Configure board_5
         }
         /*
         else if(outputFromUI.substring(0,9) == "power_reg")
@@ -61,14 +59,16 @@ void DBControl::Serial_Control() {
         */
         else
         {
-          serial_message = outputFromUI;
+          Safety_Check();
+          Serial.println("error");
+          return -1;
         }
       }
 }
 
 //Check if the daughter board is present,
 //if it isnt, disable the Power Regulator relay
-void DBControl::Safety_Check(){
+void DBControl::safetyCheck(){
     readBoardID();
     int sumOfIdStates = 0;
     for (int i = 0; i < 8; i++) {
@@ -96,5 +96,11 @@ String DBControl::stringifyBoardID() {
      boardID = boardID + String(boardIdPinState[i]);
   }
   return boardID;
+}
+
+void DBControl::configureBoardIdPins() {
+  for (int i = 0; i < 8; i++) {
+     pinMode(boardIdPins[i], INPUT);
+  }
 }
 

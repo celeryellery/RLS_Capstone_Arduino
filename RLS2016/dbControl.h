@@ -16,27 +16,16 @@
 
 class DBControl {
   public: 
-  void Serial_Control();
-  void Safety_Check();
+  int serialControl();
+  void safetyCheck();
   void readBoardID();
   String stringifyBoardID();
+  void configureBoardIdPins();
   
   private:
-  // variables to hold input from UI
-  String temp = "null";
-  int test;
-  int test1;
-  
-  String serial_message;
-  String serial_message_num;
-  
   // Arduino Pins used for reading Board ID
   const int boardIdPins[8];
   int boardIdPinState[8];
-
-  // helper functions and testing functions
-  void test_message();
-
 };
 
 #endif
