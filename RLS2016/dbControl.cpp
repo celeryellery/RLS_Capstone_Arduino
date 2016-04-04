@@ -12,7 +12,6 @@
 #include "Arduino.h"
 #include "dbControl.h"
 
-/********************** Assign private variables******************************/
 // variables to hold input from UI
 String temp = "null";
 int test = 0;
@@ -21,34 +20,17 @@ int test1 = 0;
 String serial_message = "null";
 String serial_message_num = "null";
 
-// variables to hold Board ID
-//board_ID: start
-const int buttonPin_A = 51;// A0;     
-const int buttonPin_B = 49;//A1;
-const int buttonPin_C = 47; //A2;
-const int buttonPin_D = 45; //A3;     
-const int buttonPin_E = 43;//A4;
-const int buttonPin_F = 41;//A5;
-const int buttonPin_G = 39;//A6;
-const int buttonPin_H = 37;//A7;
+// Pins of Board ID are Arduino Mega's analog input pins
+const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 39, 37};
+int boardIdPinState[8] = {0};
 String board_ID = "null";
-int buttonState_A = 0;         
-int buttonState_B = 0; 
-int buttonState_C = 0;
-int buttonState_D = 0;     
-int buttonState_E = 0;
-int buttonState_F = 0;
-int buttonState_G = 0;
-int buttonState_H = 0;
-
-
 
 // class constructor
 DBControl::DBControl() {
   
 }
 
-void Serial_Control() {
+void DBControl::Serial_Control() {
       if (Serial.available()) 
       {
         temp = Serial.readString();
@@ -91,56 +73,39 @@ void Serial_Control() {
 
 //This function exists only for testting purposes, it sends the user the last message
 //that the MEGA board received
-private void test_message(){
+void DBControl::test_message(){
   Serial.println(serial_message);
 }
 
 //Check if the daughter board is present,
 //if it isnt, disable the Power Regulator relay
-void Safety_Check(){
-    buttonState_A = digitalRead(buttonPin_A);
-    buttonState_B = digitalRead(buttonPin_B);
-    buttonState_C = digitalRead(buttonPin_C);
-    buttonState_D = digitalRead(buttonPin_D);
-    buttonState_E = digitalRead(buttonPin_E);
-    buttonState_F = digitalRead(buttonPin_F);
-    buttonState_G = digitalRead(buttonPin_G);
-    buttonState_H = digitalRead(buttonPin_H);
-    if ((buttonState_A == 0)
-        &(buttonState_B == 0)
-        &(buttonState_C == 0)
-        &(buttonState_D == 0)
-        &(buttonState_E == 0)
-        &(buttonState_F == 0)
-        &(buttonState_G == 0)
-        &(buttonState_H == 0))
+void DBControl::Safety_Check(){
+    readBoardID();
+    int sumOfIdStates = 0;
+    for (int i = 0; i < 8; i++) {
+      sumOfIdStates += boardIdPinState[i];
+    }
+    if (sumOfIdStates == 0)
     {
       Serial.println("No board in place!!");
       //digitalWrite(Power_Relay_Enable, LOW);
     }
  }
 
-void Board_ID()
-  {
-    buttonState_A = digitalRead(buttonPin_A);
-    buttonState_B = digitalRead(buttonPin_B);
-    buttonState_C = digitalRead(buttonPin_C);
-    buttonState_D = digitalRead(buttonPin_D);
-    buttonState_E = digitalRead(buttonPin_E);
-    buttonState_F = digitalRead(buttonPin_F);
-    buttonState_G = digitalRead(buttonPin_G);
-    buttonState_H = digitalRead(buttonPin_H);
-  
-    board_ID ="Board_ID," 
-              +String(buttonState_A)
-              +String(buttonState_B)
-              +String(buttonState_C)
-              +String(buttonState_D)
-              +String(buttonState_E)
-              +String(buttonState_F)
-              +String(buttonState_G)
-              +String(buttonState_H);
-    Serial.print("Board ID: ");
-    Serial.println(board_ID);
+void DBControl::readBoardID() {
+  // Read the voltage on all 8 pins of the board ID
+  // and save their state into the array boardIDPinState
+  for (int i = 0; i < 8; i++) {
+    boardIdPinState[i] = digitalRead(boardIdPins[i]));
+  }
+}
+
+String DBControl::stringifyBoardID() {
+  // Build up a string from all the board ID pin states
+  boardID = "Board_ID,";
+  for (int i = 0; i < 8; i++) {
+     boardID = boardID + String(boardIdPinState[i]);
+  }
+  return boardID;
 }
 

@@ -18,6 +18,8 @@ class DBControl {
   public: 
   void Serial_Control();
   void Safety_Check();
+  void readBoardID();
+  String stringifyBoardID();
   
   private:
   // variables to hold input from UI
@@ -27,29 +29,13 @@ class DBControl {
   
   String serial_message;
   String serial_message_num;
-
-  // variables to hold board ID
-  const int buttonPin_A;    
-  const int buttonPin_B;
-  const int buttonPin_C;
-  const int buttonPin_D; 
-  const int buttonPin_E;
-  const int buttonPin_F;
-  const int buttonPin_G;
-  const int buttonPin_H;
-  String board_ID = "null";
-  int buttonState_A;        
-  int buttonState_B; 
-  int buttonState_C;
-  int buttonState_D;     
-  int buttonState_E;
-  int buttonState_F;
-  int buttonState_G;
-  int buttonState_H;
+  
+  // Arduino Pins used for reading Board ID
+  const int boardIdPins[8];
+  int boardIdPinState[8];
 
   // helper functions and testing functions
   void test_message();
-  void Board_ID();
 
 };
 

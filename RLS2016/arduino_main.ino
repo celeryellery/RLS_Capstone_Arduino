@@ -56,6 +56,9 @@ void setup() {
 // the loop routine runs over and over again forever
 void loop() {
     boardController.Serial_Control();
+
+      //Serial.print("Board ID: "); // DELETE THIS LINE LATER IF WEIRD SERIAL PRINT THINGS ARE HAPPENING!!!!!
+ // Serial.println(boardID); // AND THIS ONE TOO!!!!
     boardController.Safety_Check();   
 }
 
