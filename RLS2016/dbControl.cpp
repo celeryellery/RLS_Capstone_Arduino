@@ -12,13 +12,6 @@
 #include "Arduino.h"
 #include "dbControl.h"
 
-// variables to hold input from UI
-int test = 0;
-int test1 = 0;
-
-String serial_message = "null";
-String serial_message_num = "null";
-
 // Pins of Board ID are Arduino Mega's analog input pins
 const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 39, 37};
 int boardIdPinState[8] = {0};
@@ -46,7 +39,7 @@ void DBControl::Serial_Control() {
         }
         else if (outputFromUI.substring(0,7) == "board_1") //Board_1 is addressed
         {
-          serial_message = temp;
+          serial_message = outputFromUI;
           Serial.println(serial_message); //testting
           board_1(outputFromUI); //Configure board_2 (the default message is board_1,01,1,4,4,01,01)
         }      
@@ -71,12 +64,6 @@ void DBControl::Serial_Control() {
           serial_message = outputFromUI;
         }
       }
-}
-
-//This function exists only for testting purposes, it sends the user the last message
-//that the MEGA board received
-void DBControl::test_message(){
-  Serial.println(serial_message);
 }
 
 //Check if the daughter board is present,
