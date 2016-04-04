@@ -1,13 +1,31 @@
+/******************************************************************************
+	db5.h
+	This implementation file contains code for Daugherboard 5,
+	part of the Remote Lab System at the University of
+	Washington Bothell. See db5.h.
+	This code is designed to run on an Arduino Mega 2560.
+	
+	Created by Ellery Walsh, March 2016
+	Reseased into the public domain.
+******************************************************************************/
+
+#include "Arduino.h"
+#include "db5.h"
+
+// class constructor
+DB5::DB5() {
+	
+}
+
+// class destructor
+DB5::
+
 String temp = "null";
 int test = 0;
 int test1 = 0;
 
 String serial_message = "null";
 String serial_message_num = "null";
-
-//board_4 setup: start
-
-//board_4 setup: end
 
 //board_5 setup: start
 //R1
@@ -238,4 +256,3 @@ void board_5(String Board_5_Serial) {
     Serial.println("Board5 capacitor value: ");
   }
 }
-
