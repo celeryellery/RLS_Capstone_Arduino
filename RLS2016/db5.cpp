@@ -39,6 +39,7 @@ void DB5::configurePins() {
 
 void DB5::execute(String Board_5_Serial) {
   // variables used for parsing input from interface
+  // the default message is board_5,1,1,1
   top_resistor = Board_5_Serial.substring(8,9).toInt();
   bottom_resistor = Board_5_Serial.substring(9,10).toInt();
   capacitor = Board_5_Serial.substring(10,11).toInt();

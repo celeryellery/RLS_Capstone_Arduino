@@ -42,17 +42,56 @@ void DB4::configurePins() {
 
 void DB4::execute(String Board_4_Serial) {
 	  // variables used for parsing input from interface
+	  // the default message is board_4,1,1,1
   resistor = Board_4_Serial.substring(8,9).toInt();
   diode1 = Board_4_Serial.substring(9,10).toInt();
   diode2 = Board_4_Serial.substring(10,11).toInt();
   
   // State of resistor
+  if (resistor == 1) { // R3 = 0.5K is in circuit
+	  digitalWrite(switchU1_In1, HIGH);
+	  digitalWrite(switchU1_In2, HIGH);
+	  digitalWrite(switchU1_In3, LOW);
+	  digitalWrite(switchU1_In4, HIGH);
+  }
+  else if (resistor == 2) { // R2 = 1K is in circuit
+	  digitalWrite(switchU1_In1, HIGH);
+	  digitalWrite(switchU1_In2, LOW);
+	  digitalWrite(switchU1_In3, HIGH);
+	  digitalWrite(switchU1_In4, HIGH);
+  }
+  else if (resistor == 3) { // R4 = 1.5K is in circuit
+	  digitalWrite(switchU1_In1, LOW);
+	  digitalWrite(switchU1_In2, HIGH);
+	  digitalWrite(switchU1_In3, HIGH);
+	  digitalWrite(switchU1_In4, HIGH);
+  }
+  else if (resistor == 4) { // R5 = 5K is in circuit
+	  digitalWrite(switchU1_In1, HIGH);
+	  digitalWrite(switchU1_In2, HIGH);
+	  digitalWrite(switchU1_In3, HIGH);
+	  digitalWrite(switchU1_In4, LOW);
+  }
   
   
   // State of diode 1
+  if (diode1 == 0) { //diode1 backwards
+	  digitalWrite(switchU3_In1, LOW);
+	  digitalWrite(switchU3_In4, HIGH);
+  }
+  else if (diode1 == 1) { //diode1 forwards
+	  digitalWrite(switchU3_In1, HIGH);
+	  digitalWrite(switchU3_In4, LOW);	  
+  }
   
   
   // State of diode2
-  
-  
+  if (diode2 == 0) { //diode2 backwards
+	  digitalWrite(switchU3_In2, HIGH);
+	  digitalWrite(switchU3_In3, LOW);	  
+  }
+  else if (diode2 == 1) { //diode2 forwards
+	  digitalWrite(switchU3_In2, LOW);
+	  digitalWrite(switchU3_In3, HIGH);	  
+  }
 }
