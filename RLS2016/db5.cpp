@@ -24,7 +24,7 @@ const int switch2_In1 = 22;
 //C2
 const int switch2_In2 = 24;
 
-// set up variables used for parsing input from interface
+// set up variables used for parsing input from user interface
 int top_resistor = 0;
 int bottom_resistor = 0;
 int capacitor = 0;
@@ -47,23 +47,19 @@ void DB5::execute(String Board_5_Serial) {
   if(top_resistor == 0) {
     digitalWrite(switch2_In4, HIGH);
     digitalWrite(switch2_In3, LOW);
-    Serial.println("Board5 Top resistor value: ");
   }
   else if (top_resistor == 1) {
     digitalWrite(switch2_In4, LOW);
     digitalWrite(switch2_In3, HIGH);
-    Serial.println("Board5 Top resistor value: ");
   }
   
   
   // State of bottom resistor
   if(bottom_resistor == 0) {
     digitalWrite(switch1_In1, LOW);
-    Serial.println("Board5 Bottom resistor value: ");
   }
   else if (bottom_resistor == 1) {
     digitalWrite(switch1_In1, HIGH);
-    Serial.println("Board5 Bottom resistor value: ");
   }
 
   
@@ -71,12 +67,10 @@ void DB5::execute(String Board_5_Serial) {
   if(capacitor == 0) {
     digitalWrite(switch2_In1, LOW);
     digitalWrite(switch2_In2, HIGH);
-    Serial.println("Board5 capacitor value: ");
   }
   else if (capacitor == 1) {
     digitalWrite(switch2_In1, HIGH);
     digitalWrite(switch2_In2, LOW);
-    Serial.println("Board5 capacitor value: ");
   }
 }
 

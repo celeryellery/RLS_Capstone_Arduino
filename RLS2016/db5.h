@@ -26,7 +26,7 @@ class DB5 {
   const int switch2_In1 = 22; //C1
   const int switch2_In2 = 24; //C2
   
-  // variables used for parsing input from interface
+  // variables used for parsing input from user interface
   int top_resistor;
   int bottom_resistor;
   int capacitor;
