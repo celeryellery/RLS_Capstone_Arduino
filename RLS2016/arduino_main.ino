@@ -18,13 +18,14 @@
 
 #include <dbControl.h>
 #include <db5.h>
+#include <db4.h>
 
 // instantiate board objects
 DBControl boardController;
 // DB1 board1;
 // DB2 board2;
 // DB3 board3;
-// DB4 board4;
+DB4 board4;
 DB5 board5;
 // DB6 board6;
 // DB7 board7;
@@ -49,11 +50,11 @@ void setup() {
   else if (boardID == "Board_ID,00000011") {
     board3.configurePins();
   }
-  else if (boardID == "Board_ID,00000100") {
+  else*/ if (boardID == "Board_ID,00000100") {
     board4.configurePins();
   }
-  */
-  /*else*/ if (boardID == "Board_ID,00000101") {
+  
+  else if (boardID == "Board_ID,00000101") {
     board5.configurePins();
   }
   /*
@@ -84,11 +85,11 @@ void loop() {
   else if (boardIDsubstring == "board_3") {
     board3.execute(outputFromUI);
   }
-  else if (boardIDsubstring == "board_4") {
+  else*/ if (boardIDsubstring == "board_4") {
     board4.execute(outputFromUI);
   }
-  */
-  /*else*/ if (boardIDsubstring == "board_5") {
+  
+  else if (boardIDsubstring == "board_5") {
     board5.execute(outputFromUI);
   }
   /*

@@ -36,3 +36,5 @@ class DB4 {
   int diode1; // this one is in parallel to resistor
   int diode2; // this one is in series with resistor
 };
+
+#endif

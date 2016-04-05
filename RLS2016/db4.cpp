@@ -10,7 +10,7 @@
 ******************************************************************************/
 
 #include "Arduino.h"
-#include "db5.h"
+#include "db4.h"
 
 //set up connections between arduino and switches
 // Note: resistor number matches UI picture and KiCad schematic
