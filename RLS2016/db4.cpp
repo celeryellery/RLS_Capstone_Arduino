@@ -38,6 +38,7 @@ void DB4::configurePins() {
   pinMode(switchU3_In2, OUTPUT); //diode2 backwards
   pinMode(switchU3_In3, OUTPUT); //diode2 forwards
   pinMode(switchU3_In4, OUTPUT); //diode1 forwards
+  //Serial.println("Pins configured.");
 }
 
 void DB4::execute(String Board_4_Serial) {

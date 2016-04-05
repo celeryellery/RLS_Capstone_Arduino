@@ -11,6 +11,22 @@
 
 #include "Arduino.h"
 #include "dbControl.h"
+//#include "db1.h"
+//#include "db2.h"
+#include "db3.h"
+#include "db4.h"
+#include "db5.h"
+#include "db6.h"
+#include "db7.h"
+
+// instantiate board objects
+// DB1 board1;
+// DB2 board2;
+DB3 board3;
+DB4 board4;
+DB5 board5;
+DB6 board6;
+DB7 board7;
 
 // Pins of Board ID are Arduino Mega's analog input pins
 const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 39, 37};
@@ -19,8 +35,8 @@ int boardIdPinState[8] = {0};
 // Serial control returns the BoardID of the board plugged in, 
 // or "IdChecked" if the board ID was just determined,
 // or "Error" if there was an error
-String DBControl::serialControl() {
-      String outputMessage = "";
+void DBControl::serialControl() {
+      //String outputMessage = "";
       if (Serial.available()) 
       {
         String outputFromUI = Serial.readString();
@@ -29,29 +45,33 @@ String DBControl::serialControl() {
         {
           readBoardID();
           String boardID = stringifyBoardID();
-          Serial.print("Board ID: "); // DELETE THIS LINE LATER IF WEIRD SERIAL PRINT THINGS ARE HAPPENING!!!!!
+          //Serial.print("Board ID: "); // DELETE THIS LINE LATER IF WEIRD SERIAL PRINT THINGS ARE HAPPENING!!!!!
           Serial.println(boardID); 
-          outputMessage = "IdChecked";
+          //outputMessage = "IdChecked";
         }
-        else if (boardIDsubstring == "board_1") //Board_1 is addressed
+        /*else if (boardIDsubstring == "board_1") //Board_1 is addressed
         {
-          Serial.println(outputFromUI); 
-          outputMessage = outputFromUI; //Configure board_1 (the default message is board_1,01,1,4,4,01,01)
+			board1.execute(outputFromUI);
+          //Serial.println(outputFromUI); 
+          //outputMessage = outputFromUI; //Configure board_1 (the default message is board_1,01,1,4,4,01,01)
         }      
         else if (boardIDsubstring == "board_2")//Board 2 is addressed
         {
-          Serial.println(outputFromUI); 
-          outputMessage = outputFromUI; //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
-        }
+          board2.execute(outputFromUI);
+		  //Serial.println(outputFromUI); 
+          //outputMessage = outputFromUI; //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
+        } */
 		else if (boardIDsubstring == "board_4") // Board 4 is addressed (the default message is board_4,1,1,1)
 		{
-		  Serial.println(outputFromUI);           
-          outputMessage = outputFromUI;; //Configure board_4
+		  board4.execute(outputFromUI);
+		  //Serial.println(outputFromUI);           
+          //outputMessage = outputFromUI;; //Configure board_4
 		}
         else if (boardIDsubstring == "board_5")//Board 5 is addressed (the default message is board_5,1,1,1)
         {
-          Serial.println(outputFromUI);           
-          outputMessage = outputFromUI;; //Configure board_5
+			board4.execute(outputFromUI);
+          //Serial.println(outputFromUI);           
+          //outputMessage = outputFromUI;; //Configure board_5
         }
         /*
         else if(outputFromUI.substring(0,9) == "power_reg")
@@ -63,10 +83,42 @@ String DBControl::serialControl() {
         {
           safetyCheck();
           Serial.println("Error");
-          outputMessage = "Error";
+          //outputMessage = "Error";
         }
       }
-    return outputMessage;
+    //return outputMessage;
+}
+
+// Configure Pins makes sure that each board has the 
+// correct digital pins marked as outputFromUI
+void DBControl::configureDaughterboardPins() {
+	readBoardID();
+	String boardID = stringifyBoardID();
+
+  // Configure pins correctly for the given board
+  /*
+  if (boardID == "Board_ID,00000001") {
+    board1.configurePins();
+  }
+  else if (boardID == "Board_ID,00000010") {
+    board2.configurePins();
+  }
+  else*/ if (boardID == "Board_ID,00000011") {
+    board3.configurePins();
+  }
+  else if (boardID == "Board_ID,00000100") {
+    board4.configurePins();
+  }
+  else if (boardID == "Board_ID,00000101") {
+    board5.configurePins();
+  }
+  else if (boardID == "Board_ID,00000110") {
+    board6.configurePins();
+  }
+  else if (boardID == "Board_ID,00000111") {
+    board7.configurePins();
+  }
+  Serial.println(boardID);
 }
 
 //Check if the daughter board is present,
