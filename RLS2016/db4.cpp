@@ -45,8 +45,8 @@ void DB4::execute(String Board_4_Serial) {
 	  // variables used for parsing input from interface
 	  // the default message is board_4,1,1,1
   resistor = Board_4_Serial.substring(8,9).toInt();
-  diode1 = Board_4_Serial.substring(9,10).toInt();
-  diode2 = Board_4_Serial.substring(10,11).toInt();
+  diode1 = Board_4_Serial.substring(10,11).toInt();
+  diode2 = Board_4_Serial.substring(12,13).toInt();
   
   // State of resistor
   if (resistor == 1) { // R3 = 0.5K is in circuit
