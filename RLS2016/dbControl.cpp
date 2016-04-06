@@ -69,7 +69,7 @@ void DBControl::serialControl() {
 		}
         else if (boardIDsubstring == "board_5")//Board 5 is addressed (the default message is board_5,1,1,1)
         {
-			board4.execute(outputFromUI);
+			board5.execute(outputFromUI);
           //Serial.println(outputFromUI);           
           //outputMessage = outputFromUI;; //Configure board_5
         }
