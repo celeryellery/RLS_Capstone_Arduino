@@ -27,8 +27,8 @@ class DB4 {
   const int switchU1_In3 = 28; //R3 = 0.5K
   const int switchU1_In4 = 31; //R5 = 5K
   const int switchU3_In1 = 22; //diode1 backwards
-  const int switchU3_In2 = 25; //diode2 forwards
-  const int switchU3_In3 = 24; //diode2 backwards
+  const int switchU3_In2 = 25; //diode2 backwards
+  const int switchU3_In3 = 24; //diode2 forwards
   const int switchU3_In4 = 23; //diode1 forwards
   
   // variables used for parsing input from user interface

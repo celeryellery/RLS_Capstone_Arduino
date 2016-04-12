@@ -20,8 +20,8 @@ const int switchU1_In2 = 29; //R2 = 1K
 const int switchU1_In3 = 28; //R3 = 0.5K
 const int switchU1_In4 = 31; //R5 = 5K
 const int switchU3_In1 = 22; //diode1 backwards
-const int switchU3_In2 = 25; //diode2 forwards
-const int switchU3_In3 = 24; //diode2 backwards
+const int switchU3_In2 = 25; //diode2 backwards
+const int switchU3_In3 = 24; //diode2 forwards
 const int switchU3_In4 = 23; //diode1 forwards
 
 // set up variables used for parsing input from user interface
@@ -35,17 +35,18 @@ void DB4::configurePins() {
   pinMode(switchU1_In3, OUTPUT); //R3 = 0.5K
   pinMode(switchU1_In4, OUTPUT); //R5 = 5K
   pinMode(switchU3_In1, OUTPUT); //diode1 backwards
-  pinMode(switchU3_In2, OUTPUT); //diode2 forwards
-  pinMode(switchU3_In3, OUTPUT); //diode2 backwards
+  pinMode(switchU3_In2, OUTPUT); //diode2 backwards
+  pinMode(switchU3_In3, OUTPUT); //diode2 forwards
   pinMode(switchU3_In4, OUTPUT); //diode1 forwards
+  //Serial.println("Pins configured.");
 }
 
 void DB4::execute(String Board_4_Serial) {
 	  // variables used for parsing input from interface
 	  // the default message is board_4,1,1,1
   resistor = Board_4_Serial.substring(8,9).toInt();
-  diode1 = Board_4_Serial.substring(9,10).toInt();
-  diode2 = Board_4_Serial.substring(10,11).toInt();
+  diode1 = Board_4_Serial.substring(10,11).toInt();
+  diode2 = Board_4_Serial.substring(12,13).toInt();
   
   // State of resistor
   if (resistor == 1) { // R3 = 0.5K is in circuit
@@ -87,11 +88,11 @@ void DB4::execute(String Board_4_Serial) {
   
   // State of diode2
   if (diode2 == 0) { //diode2 backwards
-	  digitalWrite(switchU3_In2, HIGH);
-	  digitalWrite(switchU3_In3, LOW);	  
-  }
-  else if (diode2 == 1) { //diode2 forwards
 	  digitalWrite(switchU3_In2, LOW);
 	  digitalWrite(switchU3_In3, HIGH);	  
+  }
+  else if (diode2 == 1) { //diode2 forwards
+	  digitalWrite(switchU3_In2, HIGH);
+	  digitalWrite(switchU3_In3, LOW);	  
   }
 }

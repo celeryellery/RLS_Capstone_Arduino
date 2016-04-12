@@ -16,7 +16,8 @@
 
 class DBControl {
   public: 
-  String serialControl();
+  void serialControl();
+  void configureDaughterboardPins();
   void safetyCheck();
   void readBoardID();
   String stringifyBoardID();
