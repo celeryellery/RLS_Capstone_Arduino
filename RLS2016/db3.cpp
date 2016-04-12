@@ -12,6 +12,11 @@
 #include "Arduino.h"
 #include "db3.h"
 
+//set up pins for I2C communication with digital pots
+
+
+#include <SoftI2CMaster.h>
+
 //set up connections between arduino and switches
 
 

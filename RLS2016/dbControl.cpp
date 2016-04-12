@@ -43,10 +43,15 @@ String DBControl::serialControl() {
           Serial.println(outputFromUI); 
           outputMessage = outputFromUI; //Configure board_2 (the default message is board_2,1,1,1,1,1,1,01,01)
         }
-		else if (boardIDsubstring == "board_4") // Board 4 is addressed (the default message is board_4,1,1,1)
+		else if (boardIDsubstring == "board_3")//Board 3 is addressed
+        {
+          Serial.println(outputFromUI); 
+          outputMessage = outputFromUI; //Configure board_3 (the default message is board_3,1,1)
+        }
+		else if (boardIDsubstring == "board_4") // Board 4 is addressed 
 		{
 		  Serial.println(outputFromUI);           
-          outputMessage = outputFromUI;; //Configure board_4
+          outputMessage = outputFromUI;; //Configure board_4 (the default message is board_4,1,1,1)
 		}
         else if (boardIDsubstring == "board_5")//Board 5 is addressed (the default message is board_5,1,1,1)
         {
