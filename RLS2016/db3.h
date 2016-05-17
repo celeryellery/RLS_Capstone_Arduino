@@ -24,9 +24,21 @@ class DB3 {
   void configurePins();
   
 	private:
+	//set up connection between arduino and switch
+	const int switch_In1 = 28;
 
-  
+	//set up connections between arduino and digital pots
+	const byte pot1_sdaPin =  22;
+	const byte pot1_sclPin =  23;
+	const int  pot1_address = 24;
+
+	const byte pot2_sdaPin =  25;
+	const byte pot2_sclPin =  26;
+	const int  pot2_address = 27;
+	
   // variables used for parsing input from user interface
+  int r2_state;  // top potentiometer
+  int r3_state;  // bottom potentiometer
 
 };
 
