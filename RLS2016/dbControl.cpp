@@ -29,12 +29,9 @@ DB6 board6;
 DB7 board7;
 
 // Pins of Board ID are Arduino Mega's analog input pins
-const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 39, 37};
+const int boardIdPins[8] = {51, 49, 47, 45, 43, 41, 53, 52};
 int boardIdPinState[8] = {0};
 
-// Serial control returns the BoardID of the board plugged in, 
-// or "IdChecked" if the board ID was just determined,
-// or "Error" if there was an error
 void DBControl::serialControl() {
       //String outputMessage = "";
       if (Serial.available()) 
@@ -76,6 +73,18 @@ void DBControl::serialControl() {
 			board5.execute(outputFromUI);
           //Serial.println(outputFromUI);           
           //outputMessage = outputFromUI;; //Configure board_5
+        }
+		else if (boardIDsubstring == "board_6")//Board 5 is addressed (the default message is board_5,1,1,1)
+        {
+			board6.execute(outputFromUI);
+          //Serial.println(outputFromUI);           
+          //outputMessage = outputFromUI;; //Configure board_6
+        }
+		else if (boardIDsubstring == "board_7")//Board 5 is addressed (the default message is board_5,1,1,1)
+        {
+			board7.execute(outputFromUI);
+          //Serial.println(outputFromUI);           
+          //outputMessage = outputFromUI;; //Configure board_7
         }
         /*
         else if(outputFromUI.substring(0,9) == "power_reg")

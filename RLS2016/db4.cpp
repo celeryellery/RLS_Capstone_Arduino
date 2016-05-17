@@ -47,7 +47,6 @@ void DB4::execute(String Board_4_Serial) {
   resistor = Board_4_Serial.substring(8,9).toInt();
   diode1 = Board_4_Serial.substring(10,11).toInt();
   diode2 = Board_4_Serial.substring(12,13).toInt();
-  
   // State of resistor
   if (resistor == 1) { // R3 = 0.5K is in circuit
 	  digitalWrite(switchU1_In1, HIGH);

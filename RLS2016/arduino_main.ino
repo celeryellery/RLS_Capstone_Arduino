@@ -14,7 +14,9 @@
 // check pin numbers of arduino mega analog write pins
 // check signatures of functions inside all .h files to make sure no const, private, &, etc. are missing
 // refactor helper methods in daughterboard execute functions?
-// create configuration file to turn some functions orange
+// create keywords file to turn some function names orange in Arduino IDE (https://www.arduino.cc/en/Hacking/LibraryTutorial)
+// consider making an interface that each DB object implements, so you can force each of them
+//    to have an execute() method and a configurePins() method
 
 #include <dbControl.h>
 //#include <db1.h>
@@ -32,10 +34,12 @@ DBControl boardController;
 void setup() {
   Serial.begin(9600);  
 
-  // Determine which board is plugged in
-  boardController.readBoardID();
+  // Determine which board is plugged in 
+  //TODO: TEST THE ORDER OF THESE LINES TO SEE IF IT MATTERS 
+  
   boardController.configureDaughterboardPins();
   boardController.configureBoardIdPins();
+  boardController.readBoardID();
   
   // Need to include power regulator stuff here later, but not now for testing a few boards only
   Serial.println("Finished Setup successfully.");
