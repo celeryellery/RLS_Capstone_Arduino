@@ -9,6 +9,9 @@
 	Reseased into the public domain.
 ******************************************************************************/
 
+// For Daughterboard 3, the Software I2C library is needed
+// see reference at https://todbot.com/blog/2010/09/25/softi2cmaster-add-i2c-to-any-arduino-pins/
+#include "SoftI2CMaster.h"
 
 #ifndef db3_h
 #define db3_h
